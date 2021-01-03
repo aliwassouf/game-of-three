@@ -1,4 +1,6 @@
-package com.lieferando.core;
+package com.lieferando.core.functionality;
+
+import com.lieferando.core.GameStatus;
 
 public abstract class Validator {
 

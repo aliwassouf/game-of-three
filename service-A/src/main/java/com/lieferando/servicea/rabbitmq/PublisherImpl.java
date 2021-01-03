@@ -1,6 +1,6 @@
 package com.lieferando.servicea.rabbitmq;
 
-import com.lieferando.core.Publisher;
+import com.lieferando.core.functionality.Publisher;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

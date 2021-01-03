@@ -1,7 +1,6 @@
 package com.lieferando.core.functionality;
 
 import com.lieferando.core.GameStatus;
-import com.lieferando.core.Publisher;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;

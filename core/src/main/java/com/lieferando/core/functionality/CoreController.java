@@ -1,9 +1,5 @@
 package com.lieferando.core.functionality;
 
-import com.lieferando.core.GameStatus;
-import com.lieferando.core.Publisher;
-import com.lieferando.core.Validator;
-
 import java.util.Random;
 
 import static com.lieferando.core.GameStatus.INSTANCE;
