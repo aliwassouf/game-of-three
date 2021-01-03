@@ -1,8 +1,10 @@
 package com.lieferando.serviceb;
 
+import com.lieferando.core.SetUpConnection;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SetUpConnection
 @SpringBootApplication
 public class Application {
 
