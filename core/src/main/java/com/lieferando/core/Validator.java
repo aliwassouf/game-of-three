@@ -1,6 +1,6 @@
 package com.lieferando.core;
 
-public class Validator {
+public abstract class Validator {
 
     public static String validate(GameStatus instance){
         if (!GameStatus.INSTANCE.isMyTurn()) {
