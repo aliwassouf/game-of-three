@@ -1,5 +1,6 @@
 package com.lieferando.serviceb.messaging;
 
+import com.lieferando.core.functionality.CoreConsumer;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,6 @@ public class Consumer {
 
     @RabbitListener(queues = "${messaging.current.queue}")
     public void receiveMessage(String message) {
-        com.lieferando.core.functionality.Consumer.receiveMessage(message, publisher);
+        CoreConsumer.receiveMessage(message, publisher);
     }
 }

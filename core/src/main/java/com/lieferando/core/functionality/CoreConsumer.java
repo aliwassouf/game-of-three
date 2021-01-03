@@ -4,7 +4,7 @@ import com.lieferando.core.GameStatus;
 
 import java.util.Random;
 
-public abstract class Consumer {
+public abstract class CoreConsumer {
     public static void receiveMessage(String message, Publisher publisher){
         int number = new Random().nextInt();
         try {
