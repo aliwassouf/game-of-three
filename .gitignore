@@ -30,6 +30,9 @@ out/
 
 ### VS Code ###
 .vscode/
+/core/target/**
+/service-A/target/**
+/service-B/target/**
 wl
 src/main/gen-java
 infrastructure/.terraform
