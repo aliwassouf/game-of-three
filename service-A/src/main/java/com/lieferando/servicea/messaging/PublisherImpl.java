@@ -1,4 +1,4 @@
-package com.lieferando.serviceb.rabbitmq;
+package com.lieferando.servicea.messaging;
 
 import com.lieferando.core.functionality.Publisher;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -18,9 +18,9 @@ public class PublisherImpl implements Publisher {
     @Value("${messaging.target.routingKey}")
     private String routingKey;
 
-    public void send(int company) {
-        rabbitTemplate.convertAndSend(exchange, routingKey, company);
-        System.out.println("Send msg = " + company);
+    public void send(int value) {
+        rabbitTemplate.convertAndSend(exchange, routingKey, value);
+        System.out.println("Send msg = " + value);
 
     }
 }

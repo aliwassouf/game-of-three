@@ -1,7 +1,7 @@
 package com.lieferando.serviceb.controller;
 
 import com.lieferando.core.functionality.CoreController;
-import com.lieferando.serviceb.rabbitmq.PublisherImpl;
+import com.lieferando.serviceb.messaging.PublisherImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

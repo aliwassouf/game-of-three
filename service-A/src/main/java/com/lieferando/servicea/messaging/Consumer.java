@@ -1,9 +1,8 @@
-package com.lieferando.serviceb.rabbitmq;
+package com.lieferando.servicea.messaging;
 
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
-
 
 @Component
 @AllArgsConstructor
