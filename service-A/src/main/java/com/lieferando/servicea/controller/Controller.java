@@ -1,5 +1,6 @@
 package com.lieferando.servicea.controller;
 
+import com.lieferando.core.NearestNumberService;
 import com.lieferando.core.gamesessionmanagment.GameSessionService;
 import com.lieferando.core.gamesessionmanagment.db.GameSession;
 import lombok.AllArgsConstructor;
@@ -22,23 +23,35 @@ public class Controller {
 
     @PostMapping("/start/{number}")
     public String send(@PathVariable("number") int number) {
-        return gameSessionService.send(number);
+        return gameSessionService.send(number, 0L);
     }
 
     @PostMapping("/{gameSessionId}/addOne")
     public String addOne(@PathVariable("gameSessionId") long gameSessionId) {
-        return gameSessionService.addOne(gameSessionId);
+        var latestEvent = gameSessionService.getLastGameEvent(gameSessionId);
+        if (latestEvent.isPresent())
+
+            return gameSessionService.send(NearestNumberService.INSTANCE.applyAsInt(latestEvent.get().getValue(), 1), gameSessionId);
+        return "You haven't received an event on this game yet";
     }
 
 
     @PostMapping("/{gameSessionId}/subtractOne")
     public String subtractOne(@PathVariable("gameSessionId") long gameSessionId) {
-        return gameSessionService.subOne(gameSessionId);
+        var latestEvent = gameSessionService.getLastGameEvent(gameSessionId);
+        if (latestEvent.isPresent())
+
+            return gameSessionService.send(NearestNumberService.INSTANCE.applyAsInt(latestEvent.get().getValue(), -1), gameSessionId);
+        return "You haven't received an event on this game yet";
     }
 
     @PostMapping("/{gameSessionId}/addZero")
     public String addZero(@PathVariable("gameSessionId") long gameSessionId) {
-        return gameSessionService.addZero(gameSessionId);
+        var latestEvent = gameSessionService.getLastGameEvent(gameSessionId);
+        if (latestEvent.isPresent())
+
+            return gameSessionService.send(NearestNumberService.INSTANCE.applyAsInt(latestEvent.get().getValue(), 0), gameSessionId);
+        return "You haven't received an event on this game yet";
     }
 
     @GetMapping("/{gameSessionId}/gameHistory")

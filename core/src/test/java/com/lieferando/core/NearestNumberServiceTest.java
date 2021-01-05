@@ -6,9 +6,5 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NearestNumberServiceTest {
 
-    @Test
-    void test(){
-        NearestNumberService.find(0);
-    }
 
 }

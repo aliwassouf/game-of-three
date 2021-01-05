@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface GameEventRepository extends JpaRepository<GameEvent, Long> {
 
-    GameEvent findFirstByGameSessionOrderByCreatedAtDesc(GameSession gameSession);
+    Optional<GameEvent> findFirstByGameSessionOrderByCreatedAtDesc(GameSession gameSession);
 }

@@ -10,7 +10,8 @@
             (
             ID bigserial not null
             constraint GAME_SESSION_PK
-            primary key
+            primary key,
+            finished boolean default false
             );
 
             CREATE TABLE IF NOT EXISTS GAME_EVENTS

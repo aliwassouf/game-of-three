@@ -1,7 +1,7 @@
 package com.lieferando.core.messaging;
 
-import com.lieferando.core.gamesessionmanagment.db.GameEvent;
+import com.lieferando.core.GameMessage;
 
 public interface Publisher {
-    void send(GameEvent gameEvent);
+    void send(GameMessage gameMessage);
 }

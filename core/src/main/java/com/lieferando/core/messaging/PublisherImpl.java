@@ -1,5 +1,6 @@
 package com.lieferando.core.messaging;
-import com.lieferando.core.gamesessionmanagment.db.GameEvent;
+
+import com.lieferando.core.GameMessage;
 import com.lieferando.core.properties.MessagingProperties;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,10 +13,11 @@ class PublisherImpl implements Publisher {
     private final AmqpTemplate rabbitTemplate;
     private final MessagingProperties messagingProperties;
 
-    public void send(GameEvent gameEvent) {
+    public void send(GameMessage gameMessage) {
+        gameMessage.setSenderId(messagingProperties.getId());
         rabbitTemplate.convertAndSend(messagingProperties.getTargetConnection().getExchange(),
-                messagingProperties.getTargetConnection().getRoutingKey(), gameEvent);
-        log.info("Sending the value " + gameEvent.getValue());
+                messagingProperties.getTargetConnection().getRoutingKey(), gameMessage);
+        log.info("Sending the value " + gameMessage.getValue());
 
     }
 }

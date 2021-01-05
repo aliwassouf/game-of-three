@@ -1,5 +1,6 @@
 package com.lieferando.core.messaging;
 
+import com.lieferando.core.gamesessionmanagment.GameSessionService;
 import com.lieferando.core.properties.MessagingProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
@@ -51,7 +52,7 @@ public class AutoConfig {
     }
 
     @Bean
-    public Consumer consumer(MessagingProperties messagingProperties, Publisher publisher) {
-        return new Consumer(messagingProperties, publisher);
+    public Consumer consumer(GameSessionService gameSessionService) {
+        return new Consumer(gameSessionService);
     }
 }
