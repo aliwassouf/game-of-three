@@ -6,20 +6,25 @@ spring:
     port: 5672
     username: rabbitmq
     password: rabbitmq
-  cloud:
-    stream:
-      bindings:
-        test:
-          destination: test
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/rainbow_database
+    username: unicorn_user
+    password: magical_password
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    enabled: true
+    change-log: classpath:liquibase/changelog.xml
 
 server:
   port: 8080
 
 messaging:
-  current:
+  id: PlayerOne
+  currentConnection:
     queue: servicea
     exchange: game
     routingkey: servicea
-  target:
+  targetConnection:
     exchange: game
     routingKey: serviceb

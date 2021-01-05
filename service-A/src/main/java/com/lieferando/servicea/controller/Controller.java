@@ -1,32 +1,50 @@
 package com.lieferando.servicea.controller;
 
-import com.lieferando.core.functionality.FinderService;
-import com.lieferando.core.functionality.Publisher;
+import com.lieferando.core.gamesessionmanagment.GameSessionService;
+import com.lieferando.core.gamesessionmanagment.db.GameSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.PostConstruct;
+import java.util.List;
 
-import java.util.Random;
-
-import static com.lieferando.core.GameStatus.INSTANCE;
+import static com.lieferando.core.GameMode.INSTANCE;
 
 @Slf4j
 @RestController
 @AllArgsConstructor
 public class Controller {
 
-    private final Publisher publisher;
+    private final GameSessionService gameSessionService;
 
     @PostMapping("/start/{number}")
-    public void send(@PathVariable("number") int number) {
-        log.info("Sending number " + number);
-        publisher.send(FinderService.findNearestNumberToThreeOf(number));
+    public String send(@PathVariable("number") int number) {
+        return gameSessionService.send(number);
     }
 
+    @PostMapping("/{gameSessionId}/addOne")
+    public String addOne(@PathVariable("gameSessionId") long gameSessionId) {
+        return gameSessionService.addOne(gameSessionId);
+    }
+
+
+    @PostMapping("/{gameSessionId}/subtractOne")
+    public String subtractOne(@PathVariable("gameSessionId") long gameSessionId) {
+        return gameSessionService.subOne(gameSessionId);
+    }
+
+    @PostMapping("/{gameSessionId}/addZero")
+    public String addZero(@PathVariable("gameSessionId") long gameSessionId) {
+        return gameSessionService.addZero(gameSessionId);
+    }
+
+    @GetMapping("/{gameSessionId}/gameHistory")
+    public List<GameSession> getGameHistory(@PathVariable("gameSessionId") long gameSessionId) {
+        return gameSessionService.showHistory(gameSessionId);
+    }
 
     @PostMapping("/automatic")
     public String setReplyToAuto() {
@@ -41,12 +59,5 @@ public class Controller {
         INSTANCE.setAutoReply(false);
         log.info("Setting reply to manual");
         return "done";
-    }
-
-    @PostConstruct
-    public void postConstruct(){
-        var number = (new Random()).nextInt();
-        log.info("Sending number " + number);
-        publisher.send(FinderService.findNearestNumberToThreeOf(number));
     }
 }

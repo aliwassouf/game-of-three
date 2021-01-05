@@ -4,7 +4,7 @@ package com.lieferando.core.properties;
 import lombok.Data;
 
 @Data
-public class Target {
+public class TargetConnection {
     private String exchange;
     private String routingKey;
 }

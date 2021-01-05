@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @Data
 public class MessagingProperties {
 
-    private Current current;
-    private Target target;
+    private String id;
+    private CurrentConnection currentConnection;
+    private TargetConnection targetConnection;
 }

@@ -1,7 +1,7 @@
 package com.lieferando.core;
 
 
-public enum GameStatus {
+public enum GameMode {
     INSTANCE;
     private boolean isAutoReply = true;
 

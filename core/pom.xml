@@ -11,10 +11,40 @@
 
     <artifactId>core</artifactId>
     <packaging>jar</packaging>
-
-
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>13</java.version>
+        <liquibase.sql.url>jdbc:postgresql://localhost:5432/rainbow_database</liquibase.sql.url>
+        <liquibase.sql.username>unicorn_user</liquibase.sql.username>
+        <liquibase.sql.password>magical_password</liquibase.sql.password>
+        <liquibase.sql.changelogfile>src/main/resources/liquibase/changelog.xml</liquibase.sql.changelogfile>
+        <liquibase.sql.driver>org.postgresql.Driver</liquibase.sql.driver>
+        <postgresql.version>42.2.5</postgresql.version>
+        <postgres.testcontainer.version>1.15.0</postgres.testcontainer.version>
+    </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.testcontainers</groupId>-->
+<!--            <artifactId>postgresql</artifactId>-->
+<!--            <version>${postgres.testcontainer.version}</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>3.8.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
@@ -27,4 +57,36 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>${liquibase.version}</version>
+                <configuration>
+                    <changeLogFile>${liquibase.sql.changelogfile}</changeLogFile>
+                    <driver>${liquibase.sql.driver}</driver>
+                    <url>${liquibase.sql.url}</url>
+                    <username>${liquibase.sql.username}</username>
+                    <password>${liquibase.sql.password}</password>
+                    <verbose>true</verbose>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>${postgresql.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
 </project>

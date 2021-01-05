@@ -1,7 +1,5 @@
-package com.lieferando.core.config;
+package com.lieferando.core.messaging;
 
-import com.lieferando.core.functionality.Consumer;
-import com.lieferando.core.functionality.Publisher;
 import com.lieferando.core.properties.MessagingProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
@@ -16,23 +14,23 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties({MessagingProperties.class})
 @Configuration
 @Slf4j
-public class MessagingAutoConfig {
+public class AutoConfig {
 
     @Bean
     Queue queue(MessagingProperties messagingProperties) {
-        var queueName = messagingProperties.getCurrent().getQueue();
+        var queueName = messagingProperties.getCurrentConnection().getQueue();
         log.info("Creating queue with name "+ queueName);
         return new Queue(queueName, true);
     }
 
     @Bean
     DirectExchange exchange(MessagingProperties messagingProperties) {
-        return new DirectExchange(messagingProperties.getCurrent().getExchange());
+        return new DirectExchange(messagingProperties.getCurrentConnection().getExchange());
     }
 
     @Bean
     Binding binding(Queue queue, DirectExchange exchange, MessagingProperties messagingProperties) {
-        return BindingBuilder.bind(queue).to(exchange).with(messagingProperties.getCurrent().getRoutingKey());
+        return BindingBuilder.bind(queue).to(exchange).with(messagingProperties.getCurrentConnection().getRoutingKey());
     }
 
     @Bean
@@ -49,11 +47,11 @@ public class MessagingAutoConfig {
 
     @Bean
     public Publisher publisher(AmqpTemplate rabbitTemplate, MessagingProperties messagingProperties) {
-        return new Publisher(rabbitTemplate, messagingProperties);
+        return new PublisherImpl(rabbitTemplate, messagingProperties);
     }
 
     @Bean
-    public Consumer consumer(Publisher publisher) {
-        return new Consumer(publisher);
+    public Consumer consumer(MessagingProperties messagingProperties, Publisher publisher) {
+        return new Consumer(messagingProperties, publisher);
     }
 }
