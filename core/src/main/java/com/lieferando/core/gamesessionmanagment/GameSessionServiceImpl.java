@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 @Slf4j
 @AllArgsConstructor
-public class GameSessionServiceImpl implements GameSessionService {
+class GameSessionServiceImpl implements GameSessionService {
 
     private final MessagingProperties messagingProperties;
     private final GameEventRepository gameEventRepository;
