@@ -39,7 +39,7 @@ class GameSessionServiceImplTest {
     }
 
     @Test
-    void whenSendingZeroToNonExistingSessionReturnIgnoreZeros() {
+    void whenSendingZeroIgnoreZeros() {
         Long gameSessionId = 333L;
         Mockito.when(gameSessionRepository.save(ArgumentMatchers.any())).thenReturn(new GameSession());
         Mockito.when(gameSessionRepository.findById(gameSessionId)).thenReturn(Optional.empty());
@@ -50,7 +50,7 @@ class GameSessionServiceImplTest {
     }
 
     @Test
-    void whenSendingOneOrMinusOneToSessionReturnWinningNotification() {
+    void whenSendingOneOrMinusOneReturnWinningNotification() {
         Long gameSessionId = 333L;
         var gamesession = new GameSession();
         gamesession.setId(gameSessionId);
@@ -63,7 +63,7 @@ class GameSessionServiceImplTest {
     }
 
     @Test
-    void makPlayerCanNotSendIfNotHisTurn(){
+    void makeSurePlayerCanNotSendIfNotHisTurn(){
         Long gameSessionId = 333L;
         var gamesession = new GameSession();
         gamesession.setId(gameSessionId);
@@ -82,7 +82,7 @@ class GameSessionServiceImplTest {
 
 
     @Test
-    void makPlayerCanSendIfNotHisTurn(){
+    void makeSurePlayerCanSendIfHisTurn(){
         Long gameSessionId = 333L;
         var gamesession = new GameSession();
         gamesession.setId(gameSessionId);
