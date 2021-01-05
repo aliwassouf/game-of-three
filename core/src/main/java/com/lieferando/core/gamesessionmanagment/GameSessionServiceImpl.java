@@ -41,14 +41,9 @@ class GameSessionServiceImpl implements GameSessionService {
             return s;
         }
 
-        if (number == 1 || number == -1) {
-            currentSession.setFinished(true);
-            log.info("You won the game on session with id " + gameSessionId);
-            return "You won the game with id " + currentSession.getId();
-        }
+        GameEvent latestEvent;
         var lastEventOptional = getLastGameEvent(gameSessionId);
 
-        GameEvent latestEvent;
         if (lastEventOptional.isPresent()) {
             if (!isCorrectTurnForGame(lastEventOptional.get())) {
                 return "It's not you're turn";
@@ -58,6 +53,14 @@ class GameSessionServiceImpl implements GameSessionService {
         } else {
             latestEvent = new GameEvent(messagingProperties.getId(), number);
         }
+
+        if (number == 1 || number == -1) {
+            currentSession.setFinished(true);
+            gameSessionRepository.save(currentSession);
+            log.info("You won the game on session with id " + gameSessionId);
+                return "You won the game with id " + currentSession.getId();
+        }
+
         latestEvent.setGameSession(currentSession);
         latestEvent.setSenderId(messagingProperties.getId());
         gameEventRepository.save(latestEvent);
