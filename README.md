@@ -6,7 +6,7 @@ This solution is using Java, SpringBoot and RabbitMQ.
 ## How to run 
 * go to the parent directory and do `docker-compose up`, this will spin up docker images for PostgreSQL and RabbitMQ.
 * go to [PlayerOne](PlayerOne/src/main/java/com/lieferando/servicea/PlayerOne.java) and run the service, this will start a spring boot service on port `8080`
-* go to [PlayerOne](PlayerTwo/src/main/java/com/lieferando/serviceb/PlayerTwo.java) and run the service, this will start a spring boot service on port `8082`
+* go to [PlayerTwo](PlayerTwo/src/main/java/com/lieferando/serviceb/PlayerTwo.java) and run the service, this will start a spring boot service on port `8082`
 
 PlayerOne can change the response mode of their game between [manual](http://localhost:8080/manual) and [automatic](http://localhost:8080/automatic)
 PlayerTwo has the game response mode always set to automatic. 
